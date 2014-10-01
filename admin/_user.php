@@ -69,4 +69,6 @@ function p_content()
         if (!$i)
             echo "Нет пользователей";
     }
+
+    return true;
 }
