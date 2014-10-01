@@ -36,7 +36,7 @@ class CProduct_fe extends CProduct {
             </div>
 
             <div class="product_name">
-                <a href="index.php?p=product&id=<?php echo $this->id_product; ?>"><? echo $this->name; ?></a>
+                <a href="index.php?p=product&id=<?php echo $this->id_product; ?>"><?php echo $this->name; ?></a>
             </div>   
         </div> 
         <?php
@@ -139,7 +139,7 @@ class CProduct_fe extends CProduct {
             <div class="byWith">        <div class='heading'>С ЭТИМ ТОВАРОМ ПОКУПАЮТ</div>
                 <?php
                 $i = 1;
-                $result = mysql_query("SELECT * FROM `product` WHERE `id_product` <> '$id_product'  ORDER BY RAND() LIMIT 0,3 ") or die(mysql_error());
+                $result = mysql_query('SELECT * FROM `product` WHERE `id_product` <> '.$this->id_product.'  ORDER BY RAND() LIMIT 0,3') or die(mysql_error());
                 while ($row = mysql_fetch_array($result)) {
                     $product = new CProduct_fe($row['id_product']);
                     $product->show($i++);
