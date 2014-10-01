@@ -1,0 +1,16 @@
+/* 
+    Document   : log
+    Created on : 27.07.2012, 14:35:41
+    Author     : Alexey
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+table.log { 
+    width: 100%;
+}
+table.log td{
+    word-break: break-all; 
+    min-width: 100px;
+    padding: 2px;
+}

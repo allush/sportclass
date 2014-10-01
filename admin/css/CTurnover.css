@@ -1,0 +1,16 @@
+/* 
+    Document   : CTurnover
+    Created on : 27.07.2012, 14:33:16
+    Author     : Alexey
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+table.turnover { 
+    width: 100%; 
+    margin-bottom: 16px; 
+    text-align: center;
+}
+table.turnover td{
+    word-break: break-all;
+}

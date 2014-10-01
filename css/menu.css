@@ -1,0 +1,43 @@
+
+/*Главное меню*/
+#main_menu ul li{
+    display: inline-block;
+    text-align: center;
+    padding: 10px 0px;
+    width: 163px;
+    background-image: url(../img/menu_item.png);
+}
+#main_menu ul li a{
+    font-size: 13px;
+    font-weight: bold;
+}
+#main_menu ul li a:hover{
+    color: #f5f5f5;
+}
+
+#left ul{
+}
+
+#left ul li{
+    padding: 6px 0;
+    list-style: none;
+}
+#left ul li img{
+    margin-right: 4px;
+    cursor: pointer;
+}
+
+#left ul li a.active,
+#left ul li a:hover{
+    color: #0a7ca9;
+    border-bottom: 1px solid #0a7ca9;
+}
+
+#left li a{
+    font-size: 10pt;
+    font-weight: bold;
+}
+
+#left ul li ul{
+    margin-left: 18px;    
+}

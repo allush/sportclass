@@ -1,0 +1,52 @@
+/* 
+    Document   : auth
+    Created on : 16.06.2012, 18:48:07
+    Author     : Alexey
+    Description:
+        Purpose of the stylesheet follows.
+*/
+*{
+    margin: 0;
+    padding: 0;
+    color: #333333;
+    direction: ltr;
+    font-family: tahoma, arial, verdana, sans-serif, Lucida Sans;
+    font-size: 12px;
+}
+
+body{
+    background-color: #ffffff;
+}
+
+form[name=auth] { 
+    display: block;
+    width: 200px;
+    padding: 8px;
+    margin: 200px auto 0 auto;
+}
+
+form[name=auth] input{
+    display: block;
+    border: 1px solid #cccccc;
+    background-color: #ffffff;
+    width: 190px;
+    padding: 4px;
+    margin: 4px 0;
+}
+
+form[name=auth] input[type=submit]{
+    width: 200px;
+    cursor: pointer;
+    background-color: #eeeeee;
+    font-weight: bold;
+}
+form[name=auth] input[type=submit]:hover{
+    background-color: #f5f5f5;
+}
+
+form[name=auth] a{
+    display: block;
+}
+form[name=auth] a:hover{
+    color: red;
+}

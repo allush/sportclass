@@ -1,0 +1,61 @@
+
+.product_item{
+    width: 216px;
+    margin: 4px 8px 4px 0;
+    float: left; 
+    cursor: pointer;
+    padding: 2px;
+    border: 1px solid #e5e5e5;
+}
+
+.product_item:hover{
+    box-shadow: 0 0 10px #aaa; /* Параметры тени */
+}
+
+.product_item .product_name{
+    width: 208px;
+    background-color: #000;
+    padding: 4px;
+    text-align: center;
+    overflow: hidden;
+    height: 18px;
+}
+.product_item .product_name a{
+    color: #fff;    
+}
+
+.product_item .product_img{
+    text-align: center;
+    width: 216px;
+    height: 144px;
+/*    overflow: hidden;*/
+}
+.product_item .product_img img{
+    max-width: 216px;
+    max-height: 144px;
+/*    width: 216px;
+    height: 144px;*/
+}
+
+
+
+/*Карточка продукта*/
+
+.product_card{
+    
+}
+
+.product_card .product_card_img{
+    width: 216px;
+    float: left;
+    margin-top: 4px;
+}
+.product_card .product_card_img img{
+    width: 216px;    
+}
+
+.product_card .product_info{
+    float: right;
+    width: 450px;
+    margin-bottom: 16px;
+}

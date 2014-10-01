@@ -1,0 +1,183 @@
+
+.article_item{
+    width: 782px;
+    min-height: 150px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    margin-bottom: 4px;
+}     
+.id_product{
+    overflow: hidden;
+    width: 170px;
+    height: 16px;
+    text-align: left;
+    color: white;
+    background-image: url(../img/dark_bg_opacity30.png);
+    padding: 2px;
+    font-size: 10px;  
+    position: absolute;
+    z-index: 1000;
+    margin-top: 96px;
+}
+
+.load{
+    position: absolute;
+    width: 166px;
+}
+
+/*---------------------*/
+.article_img{
+    margin: 4px;
+    width: 174px;
+/*    height: 116px;*/
+    float: left;
+    text-align: center;
+    overflow: hidden;
+}
+.wrap_img{
+    height: 116px;
+    
+}
+
+.article_img img{
+    cursor: pointer;
+/*    max-width: 174px;*/
+    max-height: 116px;
+}
+
+/*---------------------*/
+.article_info1{
+    padding: 4px;
+    float: left;
+    width: 278px;
+}
+.article_name input{
+    width: 270px;
+    margin-bottom: 4px;
+}
+.article_description{
+    padding: 4px;
+}
+.article_description textarea{
+    max-width: 768px;
+    width: 768px;
+    height: 190px;
+}
+
+.article_info1 table{
+    border-collapse: collapse;
+}
+.article_info1 table td{    
+    padding: 2px;
+    width: 135px;
+}
+.article_info1 input {
+    width: 165px;
+}
+.article_info1 select{
+    width: 173px;
+}
+
+.article_name input{
+    width: 270px;
+    margin-bottom: 4px;
+}
+/*---------------------*/
+.article_info2{
+    text-align: left;
+    padding: 4px;
+    float: left;
+    width: 304px;
+    height: 220px;
+    overflow: scroll;
+}
+
+
+/*---------------------*/
+.article_item:hover .article_action{
+    visibility: visible;
+}
+
+.article_action{
+    visibility: hidden;
+    text-align: center;
+}
+.article_action a{
+    padding: 4px;
+    padding-bottom: 0;
+    display: inline-block;
+    text-decoration: none;
+}
+.article_action a img{
+    width: 16px;
+}
+.article_action a:hover{
+    padding: 2px;
+    padding-bottom: 0;
+    margin: 0 1px;
+}
+.article_action a:hover img {
+    width: 18px;
+}
+
+.product_buttons{
+    background-color: #e5e5e5;    
+}
+.product_buttons div.button{
+    padding: 8px;
+    /*    border: 1px solid #ddd;*/
+    float: left;
+    width: 200px;
+    margin: 4px 16px 4px 4px;
+
+}
+
+.product_buttons div input{
+    width: 50px;
+    margin-right: 16px;
+}
+
+
+
+.catalog{
+    width: 200px;
+    float: left;
+    padding: 8px;
+    margin-right: 4px;
+    margin-bottom: 4px;
+    text-align: center;
+    background-color: #e5e5e5;
+    border: 1px solid #aaaaaa;
+}
+.catalog:hover{
+    cursor: pointer;
+    border-bottom: 1px solid #3e809d;
+}
+
+.catalog img{
+    max-width: 200px;
+}
+
+
+
+.manageBlock{        
+    background-color: #fff;
+    padding: 2px 8px ;
+    border-bottom: 1px solid #aaaaaa;
+    cursor: pointer;
+    margin-bottom: 4px;
+}
+.manageBlock button{
+    width: 120px;
+}
+
+.groupAction{
+    float: right;
+    margin: 4px 4px 0 0 ;
+    text-align: right;
+}
+.groupAction a{
+    padding: 4px;
+    text-decoration: none;
+    cursor: pointer;
+}

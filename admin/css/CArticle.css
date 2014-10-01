@@ -1,0 +1,27 @@
+/* 
+    Document   : CArticle
+    Created on : 30.10.2012, 11:17:17
+    Author     : alexey
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+ul, ol{
+    list-style-position: inside;
+}
+
+li{
+    list-style-position: inside;
+    
+}
+
+

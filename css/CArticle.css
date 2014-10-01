@@ -1,0 +1,54 @@
+
+.article{
+    margin-bottom: 16px;
+    list-style-image:  url(../img/arrow.png);
+}
+.article .title{
+    padding: 0;
+}
+.article .title a{
+    font-size: 16px;
+    text-decoration: underline;
+    word-break: keep-all;
+}
+
+
+.previewArticle{
+    margin: 8px 0;
+    clear: both;
+}
+.previewArticle .previewArticleTitle{
+    font-weight: bold;
+}
+.previewArticle .previewArticleTitle a{
+    text-decoration: underline;
+    font-size: 14pt;
+    color: #0a7ca9;
+/*    color: #498ba5;*/
+}
+
+.previewArticle .previewArticleDate{
+    color: #666;
+}
+
+.previewArticle .previewArticleHeading{
+    color: #666;
+}
+
+.previewArticle .previewArticleBody{
+    padding-left: 24px;
+}
+
+.previewArticle .previewArticleMore{
+    font-weight: bold;
+}
+
+ul{
+    list-style-position: inside;
+}
+
+/*#center img{
+    max-width: 685px;
+}*/
+
+

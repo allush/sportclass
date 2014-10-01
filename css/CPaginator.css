@@ -1,0 +1,28 @@
+.paginator{
+    clear: both;
+    padding-top: 24px;
+    text-align: center;
+}
+.paginator form{
+    display: inline-block;
+    margin: 0 16px;
+}
+.paginator select{
+    
+}
+.paginator form button{
+    background-color: #ff8f37;
+    padding: 2px;
+    cursor: pointer;
+}
+
+.paginator form button:hover{
+    background-color: #ffa800;
+}
+
+a.nextLink,
+a.backLink{
+    font-weight: bold;
+}
+
+

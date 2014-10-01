@@ -1,0 +1,22 @@
+.comment_item{
+    border: 1px solid #f5f5f5;
+    margin: 4px 0;
+    padding: 4px;
+}
+.comment_item:hover{
+    cursor: pointer;
+    background-color: #f9f9f9;
+    border: 1px solid #cccccc;
+}
+
+.comment_item .comment_content{
+    padding: 2px 4px;
+}
+
+.comment_item .author{
+    padding: 2px 12px;
+}
+.comment_item .author a{
+    color: #2a99ac;
+    font-size: 11px;
+}

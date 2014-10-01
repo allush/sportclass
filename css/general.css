@@ -1,0 +1,74 @@
+@import "menu.css" screen;
+@import "lattice.css" screen;
+
+
+a{
+    text-decoration: none; 
+}
+a:hover{
+    color: #0a7ca9;
+}
+
+#search{
+    text-align: right;
+    margin-bottom: 7px;
+    margin-right: -15px;
+}
+#search input{
+    width: 200px;
+    padding: 3px;
+    background-color: #efefef;
+    border: 1px solid #e5e5e5;
+}
+
+#search button{
+    border: none;
+    width: 60px;
+    margin-left: -3px;
+    padding: 4px 6px;
+    background-color: #000;
+    color: #fff;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+}
+
+#brend{
+    margin: 4px 0;
+    width: 200px;
+    padding: 2px;
+    background-color: #efefef;
+    border: 1px solid #e5e5e5;
+}
+
+.clearer{
+    clear: both;
+}
+
+.delimiter{
+    width: 200px;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #fff;
+}
+
+.heading{
+    font-size: 18px;
+    font-weight: bold;
+    margin: 4px 0;
+}
+.heading a{
+    font-size: 18px;
+    font-weight: bold;
+}
+.heading a:hover{
+    text-decoration: underline;
+}
+
+.subheading{
+    color: #0a7ca9;
+    font-weight: bold;
+    font-size: 14px;
+}
+#tbutton{
+    display: none;
+}

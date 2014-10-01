@@ -1,0 +1,27 @@
+.video_item{
+    border-bottom: 1px solid #cccccc;
+    margin-bottom: 8px;
+    padding: 4px 0;
+}
+.video_item .thumbnail{
+    float: left;
+    width: 100px;
+    margin-right: 4px;
+}
+.video_item .thumbnail img{
+    max-width: 100px;
+}
+
+.video_item .title{
+    padding: 4px;
+    font-weight: bold;
+    background-color: #eee;
+    
+}
+
+.video_item .heading{
+    font-size: 11px;
+}
+.video_item .action{
+    
+}

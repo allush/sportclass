@@ -1,0 +1,12 @@
+
+.date{
+    padding: 8px;
+    margin-bottom: 4px;
+    text-align: center;
+    background-color: #e5e5e5;
+    border: 1px solid #aaaaaa;
+}
+.date:hover{
+    cursor: pointer;
+    border-bottom: 1px solid #3e809d;
+}
