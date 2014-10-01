@@ -39,7 +39,7 @@ function p_content() {
             <a class='small_grey right' href="role_delete.php?id_role=<?php echo $id_role; ?>" onclick="if(!confirm('Вы действительно хотите удалить роль ( <?php echo $name; ?> )? Все пользователи этой роли будут также удалены!')) return false;">Удалить</a>
             <div class="clearer"></div>
         </div>
-        <?
+        <?php
     }
     if(!$i)
         echo "Нет ролей";
