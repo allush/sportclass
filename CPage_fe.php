@@ -75,11 +75,11 @@ class CPage_fe extends CPage {
         ?>
         <ul>
             <li><a href="index.php?p=products">КАТАЛОГ</a></li>
+            <li><a href="index.php?p=news">НОВОСТИ</a></li>
             <li><a href="index.php?p=about">О КОМПАНИИ</a></li>
             <li><a href="index.php?p=club">СПОРТИВНЫЙ КЛУБ</a></li>
             <li><a href="index.php?p=delivery">ДОСТАВКА</a></li>
             <li><a href="index.php?p=contacts">КОНТАКТЫ</a></li>
-            <li><a href="/forum/">ФОРУМ</a></li>
         </ul>
         <?php
     }
