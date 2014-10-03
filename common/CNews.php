@@ -5,34 +5,12 @@ include 'CRole.php';
 class CNews
 {
 
-    protected $id = false;
-    protected $owner_id = false;
-    protected $from_id = false;
-    protected $signer_id = false;
-    protected $date = false;
-    protected $text = false;
-
-    public function __construct($id)
-    {
-        if (!$id)
-            return;
-
-        $result = mysql_query('SELECT * FROM `news` WHERE `id`=' . $id);
-        if (!$result)
-            return;
-        $row = mysql_fetch_array($result);
-        if (!$row)
-            return;
-
-
-        $this->id = $id;
-        $this->owner_id = $row['owner_id'];
-        $this->from_id = $row['from_id'];
-        $this->signer_id = $row['signer_id'];
-        $this->date = $row['date'];
-        $this->text = $row['text'];
-
-    }
+    public $id = false;
+    public $owner_id = false;
+    public $from_id = false;
+    public $signer_id = false;
+    public $date = false;
+    public $text = false;
 
     public function __get($property)
     {
@@ -79,7 +57,39 @@ class CNews
 
     public function save()
     {
-//        $result = mysql_query('INSERT INTO `news` WHERE `id`=' . $id);
+        mysql_query("INSERT  INTO `news` (`id`, `owner_id`, `from_id`, `signer_id`, `text`, `date`)
+         VALUES ('$this->id','$this->owner_id','$this->from_id','$this->signer_id','$this->text','$this->date');");
+    }
+
+    public function update()
+    {
+        mysql_query("UPDATE `news` SET
+        `owner_id`='.$this->owner_id,
+        `from_id`='.$this->from_id,
+        `signer_id=`.$this->signer_id,
+        `text=`.$this->text,
+        `data=`.$this->data WHERE `id`=" . $this->id);
+    }
+
+    public static function findByPk($id)
+    {
+        if (!(int)$id) return null;
+
+        $result = mysql_query('SELECT * FROM `news` WHERE `id`=' . $id);
+        if (!$result) return null;
+
+        $row = mysql_fetch_array($result);
+        if (!$row) return null;
+
+        $news = new CNews();
+        $news->id = $id;
+        $news->owner_id = $row['owner_id'];
+        $news->from_id = $row['from_id'];
+        $news->signer_id = $row['signer_id'];
+        $news->date = $row['date'];
+        $news->text = $row['text'];
+
+        return $news;
     }
 }
 
