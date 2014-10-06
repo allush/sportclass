@@ -59,6 +59,7 @@ class CNews
     {
         mysql_query("INSERT  INTO `news` (`id`, `owner_id`, `from_id`, `signer_id`, `text`, `date`)
          VALUES ('$this->id','$this->owner_id','$this->from_id','$this->signer_id','$this->text','$this->date');");
+        return true;
     }
 
     public function update()

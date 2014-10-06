@@ -1,23 +1,31 @@
 <?php
 include 'CNews.php';
 include 'connect.php';
-//while() Для получения всех записей
-//{
-//}
-$ch = curl_init('http://api.vk.com/method/wall.get?owner_id=-15144618&count=50&filter="owner"');
+include 'CImageHandler.php';
+$count = 2;
+$offset = 0;
+$img = new CImageHandler();
+do {
+    $ch = curl_init('http://api.vk.com/method/wall.get?owner_id=-15144618&offset=' . $offset . '&count=' . $count . '&filter="owner"');
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    $data = curl_exec($ch);
+    $obj = json_decode($data);
 
-$data = curl_exec($ch);
-$obj = json_decode($data);
+    curl_close($ch);
 
-curl_close($ch);
-$result = mysql_query("SELECT MAX (`id`) as max FROM `news`");
-if ($result) {
-    $row = mysql_fetch_array($result);
-    $max = $row['max'];
-    foreach ($obj->response as $post) { //для добавления новых новостей
-        if ($post->{'id'} > $max) {
+    foreach ($obj->response as $post) {
+        if (is_numeric($post)) {
+            continue;
+        }
+        $result = mysql_query('SELECT * FROM `news` WHERE `id`=' . $post->{'id'});
+        if (!$result) {
+            break;
+        }
+//        if (mysql_num_rows($result) == 1) { //не дойдёт до следующих результатов
+//            break;
+//        }
+        if (mysql_num_rows($result) == 0) {
             $news = new CNews();
             $news->id = (int)$post->{'id'};
             $news->owner_id = (int)$post->{'owner_id'};
@@ -25,33 +33,21 @@ if ($result) {
             $news->signer_id = (int)$post->{'signer_id'};
             $news->date = (int)$post->{'date'};
             $news->text = $post->{'text'};
-            $news->save();
-            $max = $post->{'id'};
+
+            if ($news->save()) {
+                foreach ($post->attachments as $attachment) {
+                    if ((string)$attachment->{'type'} != 'photo') {
+                        continue;
+                    }
+                    $photo_id = (int)$attachment->photo->{'pid'};
+                    $photo_src = (string)$attachment->photo->{'src_big'};
+                    mysql_query("INSERT  INTO `photo_news` (`id`, `path`, `news_id`) VALUES ('$photo_id','$photo_src','$news->id');");
+                }
+            }
         }
-
-        echo '<br> XXX <br>' . $post->{'id'};
-        echo $post->{'text'} . '<XXX --- <br>';
-
     }
-} else {
-    $max=0;
-
-    foreach ($obj->response as $post) { //Если у нас нет новостей в базе, то добавляем все новости из запроса
-        $news = new CNews();
-        $news->id = (int)$post->{'id'};
-        $news->owner_id = (int)$post->{'owner_id'};
-        $news->from_id = (int)$post->{'from_id'};
-        $news->signer_id = (int)$post->{'signer_id'};
-        $news->date = (int)$post->{'date'};
-        $news->text = $post->{'text'};
-        $news->save();
-
-        $max = $post->{'id'};
-        echo '<br> XXX <br>' . $post->{'id'};
-        echo $post->{'text'} . '<br> --- <br>';
-
-    }
-}
+    $offset += $count;
+} while (count($obj->response) == $count + 1);
 
 
 
