@@ -22,9 +22,7 @@ do {
         if (!$result) {
             break;
         }
-//        if (mysql_num_rows($result) == 1) { //не дойдёт до следующих результатов
-//            break;
-//        }
+
         if (mysql_num_rows($result) == 0) {
             $news = new CNews();
             $news->id = (int)$post->{'id'};
