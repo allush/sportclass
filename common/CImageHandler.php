@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Image handler
  * @author Yaroslav Pelesh aka Tokolist http://tokolist.com
@@ -31,105 +32,97 @@ class CImageHandler
     const FLIP_HORIZONTAL = 1;
     const FLIP_VERTICAL = 2;
     const FLIP_BOTH = 3;
+
     public function getImage()
     {
         return $this->image;
     }
+
     public function getFormat()
     {
         return $this->format;
     }
+
     public function getWidth()
     {
         return $this->width;
     }
+
     public function getHeight()
     {
         return $this->height;
     }
+
     public function getMimeType()
     {
         return $this->mimeType;
     }
+
     public function __destruct()
     {
         $this->freeImage();
     }
+
     private function freeImage()
     {
-        if(is_resource($this->image))
-        {
+        if (is_resource($this->image)) {
             imagedestroy($this->image);
         }
-        if($this->originalImage !== null)
-        {
-            if(is_resource($this->originalImage['image']))
-            {
+        if ($this->originalImage !== null) {
+            if (is_resource($this->originalImage['image'])) {
                 imagedestroy($this->originalImage['image']);
             }
             $this->originalImage = null;
         }
     }
+
     private function checkLoaded()
     {
-        if (!is_resource($this->image))
-        {
+        if (!is_resource($this->image)) {
             throw new Exception('Load image first');
         }
     }
+
     private function loadImage($file)
     {
         $result = array();
-        if ($imageInfo = @getimagesize($file))
-        {
+        if ($imageInfo = @getimagesize($file)) {
             $result['width'] = $imageInfo[0];
             $result['height'] = $imageInfo[1];
             $result['mimeType'] = $imageInfo['mime'];
-            switch ($result['format'] = $imageInfo[2])
-            {
+            switch ($result['format'] = $imageInfo[2]) {
                 case self::IMG_GIF:
-                    if ($result['image'] = imagecreatefromgif($file))
-                    {
+                    if ($result['image'] = imagecreatefromgif($file)) {
                         return $result;
-                    }
-                    else
-                    {
+                    } else {
                         throw new Exception('Invalid image gif format');
                     }
                     break;
                 case self::IMG_JPEG:
-                    if ($result['image'] = imagecreatefromjpeg($file))
-                    {
+                    if ($result['image'] = imagecreatefromjpeg($file)) {
                         return $result;
-                    }
-                    else
-                    {
+                    } else {
                         throw new Exception('Invalid image jpeg format');
                     }
                     break;
                 case self::IMG_PNG:
-                    if ($result['image'] = imagecreatefrompng($file))
-                    {
+                    if ($result['image'] = imagecreatefrompng($file)) {
                         return $result;
-                    }
-                    else
-                    {
+                    } else {
                         throw new Exception('Invalid image png format');
                     }
                     break;
                 default:
                     throw new Exception('Not supported image format');
             }
-        }
-        else
-        {
+        } else {
             throw new Exception('Invalid image file');
         }
     }
+
     protected function initImage($image = false)
     {
-        if($image === false)
-        {
+        if ($image === false) {
             $image = $this->originalImage;
         }
         $this->width = $image['width'];
@@ -137,36 +130,35 @@ class CImageHandler
         $this->mimeType = $image['mimeType'];
         $this->format = $image['format'];
 //Image
-        if(is_resource($this->image))
+        if (is_resource($this->image))
             imagedestroy($this->image);
         $this->image = imagecreatetruecolor($this->width, $this->height);
         $this->preserveTransparency($this->image);
         imagecopy($this->image, $image['image'], 0, 0, 0, 0, $this->width, $this->height);
     }
+
     public function load($file)
     {
         $this->freeImage();
-        if(($this->originalImage = $this->loadImage($file)))
-        {
+        if (($this->originalImage = $this->loadImage($file))) {
             $this->initImage();
             $this->fileName = $file;
             return $this;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
+
     public function reload()
     {
         $this->checkLoaded();
         $this->initImage();
         return $this;
     }
+
     private function preserveTransparency($newImage)
     {
-        switch($this->format)
-        {
+        switch ($this->format) {
             case self::IMG_GIF:
                 $color = imagecolorallocate(
                     $newImage,
@@ -179,7 +171,7 @@ class CImageHandler
                 break;
             case self::IMG_PNG:
                 imagealphablending($newImage, false);
-                $color = imagecolorallocatealpha (
+                $color = imagecolorallocatealpha(
                     $newImage,
                     $this->transparencyColor[0],
                     $this->transparencyColor[1],
@@ -191,23 +183,20 @@ class CImageHandler
                 break;
         }
     }
+
     public function resize($toWidth, $toHeight, $proportional = true)
     {
         $this->checkLoaded();
         $toWidth = $toWidth !== false ? $toWidth : $this->width;
         $toHeight = $toHeight !== false ? $toHeight : $this->height;
-        if($proportional)
-        {
+        if ($proportional) {
             $newHeight = $toHeight;
             $newWidth = round($newHeight / $this->height * $this->width);
-            if($newWidth > $toWidth)
-            {
+            if ($newWidth > $toWidth) {
                 $newWidth = $toWidth;
                 $newHeight = round($newWidth / $this->width * $this->height);
             }
-        }
-        else
-        {
+        } else {
             $newWidth = $toWidth;
             $newHeight = $toHeight;
         }
@@ -220,38 +209,36 @@ class CImageHandler
         $this->height = $newHeight;
         return $this;
     }
+
     public function thumb($toWidth, $toHeight, $proportional = true)
     {
         $this->checkLoaded();
-        if($toWidth !== false)
+        if ($toWidth !== false)
             $toWidth = min($toWidth, $this->width);
-        if($toHeight !== false)
+        if ($toHeight !== false)
             $toHeight = min($toHeight, $this->height);
         $this->resize($toWidth, $toHeight, $proportional);
         return $this;
     }
+
     public function watermark($watermarkFile, $offsetX, $offsetY, $corner = self::CORNER_RIGHT_BOTTOM, $zoom = false)
     {
         $this->checkLoaded();
-        if ($wImg = $this->loadImage($watermarkFile))
-        {
+        if ($wImg = $this->loadImage($watermarkFile)) {
             $posX = 0;
             $posY = 0;
             $watermarkWidth = $wImg['width'];
             $watermarkHeight = $wImg['height'];
-            if($zoom !== false)
-            {
+            if ($zoom !== false) {
                 $dimension = round(max($this->width, $this->height) * $zoom);
                 $watermarkHeight = $dimension;
                 $watermarkWidth = round($watermarkHeight / $wImg['height'] * $wImg['width']);
-                if($watermarkWidth > $dimension)
-                {
+                if ($watermarkWidth > $dimension) {
                     $watermarkWidth = $dimension;
                     $watermarkHeight = round($watermarkWidth / $wImg['width'] * $wImg['height']);
                 }
             }
-            switch ($corner)
-            {
+            switch ($corner) {
                 case self::CORNER_LEFT_TOP:
                     $posX = $offsetX;
                     $posY = $offsetY;
@@ -305,12 +292,11 @@ class CImageHandler
             );
             imagedestroy($wImg['image']);
             return $this;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
+
     public function flip($mode)
     {
         $this->checkLoaded();
@@ -318,8 +304,7 @@ class CImageHandler
         $srcY = 0;
         $srcWidth = $this->width;
         $srcHeight = $this->height;
-        switch ($mode)
-        {
+        switch ($mode) {
             case self::FLIP_HORIZONTAL:
                 $srcX = $this->width - 1;
                 $srcWidth = -$this->width;
@@ -345,20 +330,22 @@ class CImageHandler
 //dimensions not changed
         return $this;
     }
+
     public function rotate($degrees)
     {
         $this->checkLoaded();
-        $degrees = (int) $degrees;
+        $degrees = (int)$degrees;
         $this->image = imagerotate($this->image, $degrees, 0);
         $this->width = imagesx($this->image);
         $this->height = imagesy($this->image);
         return $this;
     }
+
     public function crop($width, $height, $startX = false, $startY = false)
     {
         $this->checkLoaded();
-        $width = (int) $width;
-        $height = (int) $height;
+        $width = (int)$width;
+        $height = (int)$height;
 //Centered crop
         $startX = $startX === false ? floor(($this->width - $width) / 2) : intval($startX);
         $startY = $startY === false ? floor(($this->height - $height) / 2) : intval($startY);
@@ -376,15 +363,15 @@ class CImageHandler
         $this->height = $height;
         return $this;
     }
-    public function text($text, $fontFile, $size=12, $color=array(0, 0, 0),
-                         $corner=self::CORNER_LEFT_TOP, $offsetX=0, $offsetY=0, $angle=0, $alpha = 0)
+
+    public function text($text, $fontFile, $size = 12, $color = array(0, 0, 0),
+                         $corner = self::CORNER_LEFT_TOP, $offsetX = 0, $offsetY = 0, $angle = 0, $alpha = 0)
     {
         $this->checkLoaded();
         $bBox = imagettfbbox($size, $angle, $fontFile, $text);
         $textHeight = $bBox[1] - $bBox[7];
         $textWidth = $bBox[2] - $bBox[0];
-        switch ($corner)
-        {
+        switch ($corner) {
             case self::CORNER_LEFT_TOP:
                 $posX = $offsetX;
                 $posY = $offsetY;
@@ -424,17 +411,15 @@ class CImageHandler
             default:
                 throw new Exception('Invalid $corner value');
         }
-        if($alpha > 0)
-        {
+        if ($alpha > 0) {
             $color = imagecolorallocatealpha($this->image, $color[0], $color[1], $color[2], $alpha);
-        }
-        else
-        {
+        } else {
             $color = imagecolorallocate($this->image, $color[0], $color[1], $color[2]);
         }
         imagettftext($this->image, $size, $angle, $posX, $posY + $textHeight, $color, $fontFile, $text);
         return $this;
     }
+
     public function adaptiveThumb($width, $height)
     {
         $this->checkLoaded();
@@ -442,13 +427,10 @@ class CImageHandler
         $height = intval($height);
         $widthProportion = $width / $this->width;
         $heightProportion = $height / $this->height;
-        if ($widthProportion > $heightProportion)
-        {
+        if ($widthProportion > $heightProportion) {
             $newWidth = $width;
             $newHeight = round($newWidth / $this->width * $this->height);
-        }
-        else
-        {
+        } else {
             $newHeight = $height;
             $newWidth = round($newHeight / $this->height * $this->width);
         }
@@ -456,6 +438,7 @@ class CImageHandler
         $this->crop($width, $height);
         return $this;
     }
+
     public function resizeCanvas($toWidth, $toHeight, $backgroundColor = array(255, 255, 255))
     {
         $this->checkLoaded();
@@ -463,12 +446,9 @@ class CImageHandler
         $newHeight = min($toHeight, $this->height);
         $widthProportion = $newWidth / $this->width;
         $heightProportion = $newHeight / $this->height;
-        if($widthProportion < $heightProportion)
-        {
+        if ($widthProportion < $heightProportion) {
             $newHeight = round($widthProportion * $this->height);
-        }
-        else
-        {
+        } else {
             $newWidth = round($heightProportion * $this->width);
         }
         $posX = floor(($toWidth - $newWidth) / 2);
@@ -483,6 +463,7 @@ class CImageHandler
         $this->height = $toHeight;
         return $this;
     }
+
     public function grayscale()
     {
         $newImage = imagecreatetruecolor($this->width, $this->height);
@@ -492,15 +473,14 @@ class CImageHandler
         $this->image = $newImage;
         return $this;
     }
+
     public function show($inFormat = false, $jpegQuality = 75)
     {
         $this->checkLoaded();
-        if (!$inFormat)
-        {
+        if (!$inFormat) {
             $inFormat = $this->format;
         }
-        switch ($inFormat)
-        {
+        switch ($inFormat) {
             case self::IMG_GIF:
                 header('Content-type: image/gif');
                 imagegif($this->image);
@@ -518,42 +498,36 @@ class CImageHandler
         }
         return $this;
     }
+
     public function save($file = false, $toFormat = false, $jpegQuality = 75, $touch = false)
     {
-        if (empty($file))
-        {
+        if (empty($file)) {
             $file = $this->fileName;
         }
         $this->checkLoaded();
-        if (!$toFormat)
-        {
+        if (!$toFormat) {
             $toFormat = $this->format;
         }
-        switch ($toFormat)
-        {
+        switch ($toFormat) {
             case self::IMG_GIF:
-                if (!imagegif($this->image, $file))
-                {
+                if (!imagegif($this->image, $file)) {
                     throw new Exception('Can\'t save gif file');
                 }
                 break;
             case self::IMG_JPEG:
-                if (!imagejpeg($this->image, $file, $jpegQuality))
-                {
+                if (!imagejpeg($this->image, $file, $jpegQuality)) {
                     throw new Exception('Can\'t save jpeg file');
                 }
                 break;
             case self::IMG_PNG:
-                if (!imagepng($this->image, $file))
-                {
+                if (!imagepng($this->image, $file)) {
                     throw new Exception('Can\'t save png file');
                 }
                 break;
             default:
                 throw new Exception('Invalid image format for save');
         }
-        if ($touch && $file != $this->fileName)
-        {
+        if ($touch && $file != $this->fileName) {
             touch($file, filemtime($this->fileName));
         }
         return $this;

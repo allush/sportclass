@@ -1,10 +1,10 @@
 <?php
 include 'CNews.php';
 include 'connect.php';
-include 'CImageHandler.php';
+
 $count = 2;
 $offset = 0;
-$img = new CImageHandler();
+
 do {
     $ch = curl_init('http://api.vk.com/method/wall.get?owner_id=-15144618&offset=' . $offset . '&count=' . $count . '&filter="owner"');
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -35,7 +35,7 @@ do {
             $news->text = $post->{'text'};
 
             if ($news->save()) {
-                foreach ($post->attachments as $attachment) {
+                if (!empty($post->attachments)) foreach ($post->attachments as $attachment) {
                     if ((string)$attachment->{'type'} != 'photo') {
                         continue;
                     }
