@@ -1,27 +1,28 @@
 @import "menu.css" screen;
 @import "lattice.css" screen;
 
-
-a{
-    text-decoration: none; 
+a {
+    text-decoration: none;
 }
-a:hover{
+
+a:hover {
     color: #0a7ca9;
 }
 
-#search{
+#search {
     text-align: right;
     margin-bottom: 7px;
     margin-right: -15px;
 }
-#search input{
+
+#search input {
     width: 200px;
     padding: 3px;
     background-color: #efefef;
     border: 1px solid #e5e5e5;
 }
 
-#search button{
+#search button {
     border: none;
     width: 60px;
     margin-left: -3px;
@@ -33,7 +34,7 @@ a:hover{
     cursor: pointer;
 }
 
-#brend{
+#brend {
     margin: 4px 0;
     width: 200px;
     padding: 2px;
@@ -41,34 +42,44 @@ a:hover{
     border: 1px solid #e5e5e5;
 }
 
-.clearer{
+.clearer {
     clear: both;
 }
 
-.delimiter{
+.delimiter {
     width: 200px;
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #fff;
 }
 
-.heading{
+.picture {
+
+    width: 300px;
+    height: 300px;
+    border: 5px solid transparent;
+}
+
+.heading {
     font-size: 18px;
     font-weight: bold;
     margin: 4px 0;
 }
-.heading a{
+
+.heading a {
     font-size: 18px;
     font-weight: bold;
 }
-.heading a:hover{
+
+.heading a:hover {
     text-decoration: underline;
 }
 
-.subheading{
+.subheading {
     color: #0a7ca9;
     font-weight: bold;
     font-size: 14px;
 }
-#tbutton{
+
+#tbutton {
     display: none;
 }

@@ -30,7 +30,11 @@ do {
             $news->from_id = (int)$post->{'from_id'};
             $news->signer_id = (int)$post->{'signer_id'};
             $news->date = (int)$post->{'date'};
-            $news->text = $post->{'text'};
+            $news->text = (string)$post->{'text'};
+            if ($news->text=="")
+            {
+                $news->text=(string)$post->{'copy_text'};
+            }
 
             if ($news->save()) {
                 if (!empty($post->attachments)) foreach ($post->attachments as $attachment) {
@@ -39,13 +43,15 @@ do {
                     }
                     $photo_id = (int)$attachment->photo->{'pid'};
                     $photo_src = (string)$attachment->photo->{'src_big'};
-                    mysql_query("INSERT  INTO `photo_news` (`id`, `path`, `news_id`) VALUES ('$photo_id','$photo_src','$news->id');");
+                    $photo_text = (string)$attachment->photo->{'text'};
+                    mysql_query("INSERT  INTO `photo_news` (`id`, `path`, `news_id`, `text`) VALUES ('$photo_id','$photo_src','$news->id','$photo_text');");
                 }
             }
         }
     }
     $offset += $count;
 } while (count($obj->response) == $count + 1);
+echo "Синхронизация выполнена";
 
 
 
