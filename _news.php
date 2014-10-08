@@ -22,8 +22,6 @@ function p_content()
 
     ?>
     <div class="heading">Новости</div>
-
-    <p>
     <?php
 
     $from = 0;
@@ -39,17 +37,19 @@ function p_content()
 
     // Вывод результатов
     while ($row = mysql_fetch_assoc($result)) {
-
-        echo '<div>' . date('d m Y H:i:s', $row['date']) . '</div>';
+        echo '<div class="news">';
+        echo '<div>' . date('d.m.Y H:i', $row['date']) . '</div>';
         echo '<div>' . $row['text'] . '</div>';
         $photoresult = mysql_query('SELECT * FROM `photo_news` WHERE `news_id`=' . $row['id']);
         while ($photorow = mysql_fetch_assoc($photoresult)) {
             $path = (string)$photorow['path'];
-            echo '<div>' . $photorow['text'] . '</div>';
-            echo "<img class='picture' src='$path' alt=''  />";
-        } ?>
-        <div class="delimiter" style="width: 100%; "></div>
-    <?php
+            echo '<div class="news-photo">';
+            echo '<div class="news-photo-name">' . $photorow["text"] . '</div>';
+            echo '<img class="picture" src="' . $path . '" alt=""  />';
+            echo '</div>';
+        }
+        echo '<div class="clearer"></div>';
+        echo '</div>';
     }
 
     $result = mysql_query($query);
