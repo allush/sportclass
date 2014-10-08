@@ -22,7 +22,7 @@ $sql = "CREATE TABLE IF NOT EXISTS `news` (
               INDEX `fk_photo_news_news1_idx` (`news_id` ASC),
               CONSTRAINT `fk_photo_news_news1`
                 FOREIGN KEY (`news_id`)
-                REFERENCES `sportclass`.`news` (`id`)
+                REFERENCES `news` (`id`)
                 ON DELETE NO ACTION
                 ON UPDATE NO ACTION)
             ENGINE = InnoDB
