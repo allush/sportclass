@@ -1,2 +1,4 @@
 # Created by .gitignore support plugin (hsz.mobi)
 /.idea
+/database.mwb
+/database.mwb.bak

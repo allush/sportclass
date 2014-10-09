@@ -56,7 +56,7 @@ do {
             $news->text = (string)$post->{'copy_text'};
         }
 
-        if ($news->save()) {
+        if ($news->save() and is_array($post->attachments)) {
             foreach ($post->attachments as $attachment) {
                 if ((string)$attachment->{'type'} != 'photo') {
                     continue;
